@@ -190,33 +190,35 @@ nav a:hover{opacity:1}
   pointer-events:all;
 }
 
-.video-popup iframe{
-  border:none;
-  border-radius:15px;
-  max-width:90vw;
-  max-height:90vh;
+.video-container{
+  width:90vw;
+  max-width:900px;
+  margin:0 auto;
 }
 
+/* FIX LANDSCAPE ONLY */
 .video-popup.landscape iframe{
+  width:100%;
   aspect-ratio:16/9;
-  width:70vw;
   height:auto;
 }
 
+/* ✅ FIXED PORTRAIT CENTER (ONLY CHANGE) */
 .video-popup.portrait iframe{
   aspect-ratio:9/16;
   width:auto;
   height:85vh;
-  margin-top:0vh;
+  display:block;
+  margin:0 auto;
 }
 
-#closePopup{
-  position:absolute;
-  top:30px;
-  right:40px;
-  font-size:2rem;
-  cursor:pointer;
-  color:#00CFFF;
+/* MOBILE FIX (ONLY LANDSCAPE) */
+@media(max-width:768px){
+  .video-popup.landscape iframe{
+    width:100%;
+    height:auto;
+    aspect-ratio:16/9;
+  }
 }
 
 /* ================= CONTACT ================= */
@@ -295,13 +297,16 @@ nav a:hover{opacity:1}
 
 /* TEXT (UPDATED ONLY HERE) */
 #loader h1{
-  font-size:2rem;
+  font-size:clamp(1.2rem, 5vw, 2rem); /* responsive text */
   font-weight:600;
   text-align:center;
   letter-spacing:2px;
 
   transform:scale(0.5);
   opacity:0;
+
+  max-width:90vw; /* prevents overflow */
+  word-wrap:break-word;
 
   animation:
     zoomFlash 1.5s cubic-bezier(.2,.8,.2,1) forwards,
